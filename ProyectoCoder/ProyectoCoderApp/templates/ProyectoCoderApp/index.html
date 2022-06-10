@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Django</title>
+</head>
+<body>
+    Hola, me llamo {{ mi_nombre }}. Y hoy es {{dia_hora}}.
+    <p>Las notas de {{ mi_nombre }} son:</p>
+    {% for nota in notas %}
+
+        {% if nota >= 6 %}
+
+            <p style="color: green;">Aprobado con {{nota}}</p>
+
+        {% else %}
+
+            <p style="color: red;">La nota es: {{nota}}</p>
+
+        {% endif %}
+
+    {% endfor %}
+</body>
+</html>
