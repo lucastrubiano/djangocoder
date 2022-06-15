@@ -2,7 +2,6 @@ import datetime
 
 from django.shortcuts import render
 from django.http import HttpResponse
-from httplib2 import Http
 
 from ProyectoCoderApp.models import Curso
 
@@ -29,3 +28,15 @@ def crear_curso(request):
     lista_cursos = [x.nombre for x in Curso.objects.all()] # para obtener los nombres de los cursos y listarlos
 
     return HttpResponse(f"Cursos: {str(lista_cursos)}")
+
+def profesores(request):
+    return HttpResponse("Vista de profes")
+
+def estudiantes(request):
+    return HttpResponse("Vista de estudiantes")
+
+def cursos(request):
+    return HttpResponse("Vista de cursos")
+
+def entregables(request):
+    return HttpResponse("Vista de entregables")
