@@ -24,7 +24,7 @@ urlpatterns = [
     path('crearpython/',crear_curso),
 
     # URLS de ProyectoCoderApp
-    path('coderapp/', include('ProyectoCoderApp.urls'))
+    path('coderapp/', include('ProyectoCoderApp.urls')),
 ]
 
 # muchas aplicaciones
