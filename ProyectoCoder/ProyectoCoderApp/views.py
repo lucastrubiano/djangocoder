@@ -3,7 +3,7 @@ import datetime
 from django.shortcuts import render
 from django.http import HttpResponse
 
-from ProyectoCoderApp.models import Curso
+from .models import Curso
 
 # Create your views here.
 
@@ -36,7 +36,11 @@ def estudiantes(request):
     return HttpResponse("Vista de estudiantes")
 
 def cursos(request):
-    return HttpResponse("Vista de cursos")
+    # return HttpResponse("Vista de cursos")
+
+    cursos = Curso.objects.all()
+
+    return render(request,"ProyectoCoderApp/cursos.html",{"cursos":cursos})
 
 def entregables(request):
     return HttpResponse("Vista de entregables")
