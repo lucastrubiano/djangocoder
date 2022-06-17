@@ -1,6 +1,11 @@
 # djangocoder
 En este repo van a encontrar todos los proyectos que hagamos de django
 
+Instalar django
+
+```shell
+python -m pip install django
+```
 
 Aplicar cambios en base de datos
 
