@@ -30,10 +30,10 @@ def crear_curso(request):
     return HttpResponse(f"Cursos: {str(lista_cursos)}")
 
 def profesores(request):
-    return HttpResponse("Vista de profes")
+    return render(request,"ProyectoCoderApp/profesores.html",{})
 
 def estudiantes(request):
-    return HttpResponse("Vista de estudiantes")
+    return render(request,"ProyectoCoderApp/estudiantes.html",{})
 
 def cursos(request):
     # return HttpResponse("Vista de cursos")
