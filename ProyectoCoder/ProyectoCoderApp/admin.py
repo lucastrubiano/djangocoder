@@ -1,8 +1,9 @@
 from django.contrib import admin
 
-from ProyectoCoderApp.models import *
+from .models import *
 
 # Register your models here.
+
 class CursoAdmin(admin.ModelAdmin):
 
     list_display = ('nombre', 'comision')
@@ -17,6 +18,7 @@ class EstudianteAdmin(admin.ModelAdmin):
 class ProfesorAdmin(admin.ModelAdmin):
 
     list_display = ('nombre', 'apellido', 'profesion')
+    readonly_fields = ('profesion',)
 
 
 class EntregableAdmin(admin.ModelAdmin):
