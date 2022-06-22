@@ -45,9 +45,19 @@ def crear_curso(request):
 
 def buscar_comision(request):
 
-    comisiones =  []  #Curso.objects.all()
-    
-    return render(request,"ProyectoCoderApp/buscar_comision.html",{"comisiones":comisiones})
+    if request.method == "POST":
+
+        comision = request.POST["comision"]
+        
+        comisiones = Curso.objects.filter(comision__icontains=comision)
+
+        return render(request,"ProyectoCoderApp/buscar_comision.html",{"comisiones":comisiones})
+
+    else: # get y otros
+
+        comisiones =  []  #Curso.objects.all()
+        
+        return render(request,"ProyectoCoderApp/buscar_comision.html",{"comisiones":comisiones})
 
 def profesores(request):
     return render(request,"ProyectoCoderApp/profesores.html",{})

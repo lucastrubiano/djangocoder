@@ -17,4 +17,11 @@ Buscar Curso - App Coder
     </form>
 </p>
 
+<p>Resultados: </p>
+<ul>
+    {% for resultado in comisiones %}
+        <li>{{resultado.nombre}} [{{ resultado.comision }}]</li>
+    {% endfor %}
+</ul>
+
 {% endblock %}
