@@ -1,6 +1,6 @@
 import datetime
 
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.http import HttpResponse
 
 from .models import Curso
@@ -22,11 +22,11 @@ def crear_curso(request):
 
         info_formulario = request.POST
         
-        curso = Curso(info_formulario["nombre"], info_formulario["comision"])
+        curso = Curso(nombre=info_formulario["nombre"], comision=int(info_formulario["comision"]))
 
-        curso.save()
+        curso.save() # guardamos en la bd
         
-        return render(request,"ProyectoCoderApp/formulario_curso.html",{})
+        return redirect("cursos")
 
     else: # get y otros
         return render(request,"ProyectoCoderApp/formulario_curso.html",{})
