@@ -21,13 +21,22 @@ def crear_curso(request):
     # post
     if request.method == "POST":
 
-        info_formulario = request.POST
-        
-        curso = Curso(nombre=info_formulario["nombre"], comision=int(info_formulario["comision"]))
+        formulario = NuevoCurso(request.POST)
 
-        curso.save() # guardamos en la bd
+        if formulario.is_valid():
+
+            info_curso = formulario.cleaned_data
         
-        return redirect("cursos")
+            curso = Curso(nombre=info_curso["nombre"], comision=int(info_curso["comision"]))
+
+            curso.save() # guardamos en la bd
+            
+            return redirect("cursos")
+
+        else:
+
+            return render(request,"ProyectoCoderApp/formulario_curso.html",{"form":formulario})
+    
 
     else: # get y otros
 
