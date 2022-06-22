@@ -4,6 +4,7 @@ from django.shortcuts import redirect, render
 from django.http import HttpResponse
 
 from .models import Curso
+from .forms import NuevoCurso
 
 # Create your views here.
 
@@ -29,7 +30,10 @@ def crear_curso(request):
         return redirect("cursos")
 
     else: # get y otros
-        return render(request,"ProyectoCoderApp/formulario_curso.html",{})
+
+        formularioVacio = NuevoCurso()
+
+        return render(request,"ProyectoCoderApp/formulario_curso.html",{"form":formularioVacio})
     
 
 def profesores(request):
