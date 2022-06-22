@@ -1,0 +1,20 @@
+{% extends 'ProyectoCoderApp/base.html' %}
+{% load static %}
+
+{% block tituloPagina %}
+Buscar Curso - App Coder
+{% endblock %}
+
+{% block contenidoPagina %}
+<p>Buscar comision:
+    <form action="" method="post">
+        {% csrf_token %}
+
+        <!-- <p>Curso: <input type="text" name="nombre" id="" maxlength="30"> </p> -->
+        <input type="number" name="comision" id="" min="0">
+
+        <input type="submit" value="Buscar">
+    </form>
+</p>
+
+{% endblock %}
