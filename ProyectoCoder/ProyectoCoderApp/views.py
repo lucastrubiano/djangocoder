@@ -17,17 +17,8 @@ def inicio(request):
 
 def crear_curso(request):
 
-    # nombre = "Python"
-    # comision = 31080
-
-    # nuevo_curso = Curso(nombre=nombre,comision=comision)
-    # nuevo_curso.save()
-
-    cursos = Curso()
-
-    lista_cursos = [x.nombre for x in Curso.objects.all()] # para obtener los nombres de los cursos y listarlos
-
-    return HttpResponse(f"Cursos: {str(lista_cursos)}")
+    return render(request,"ProyectoCoderApp/formulario_curso.html",{})
+    
 
 def profesores(request):
     return render(request,"ProyectoCoderApp/profesores.html",{})
