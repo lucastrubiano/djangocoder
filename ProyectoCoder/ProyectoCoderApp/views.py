@@ -17,7 +17,23 @@ def inicio(request):
 
 def crear_curso(request):
 
-    return render(request,"ProyectoCoderApp/formulario_curso.html",{})
+    # get
+    if request.method == "GET":
+        return render(request,"ProyectoCoderApp/formulario_curso.html",{})
+
+    # post
+    elif request.method == "POST":
+
+        info_formulario = request.POST
+        
+        curso = Curso(info_formulario["nombre"], info_formulario["comision"])
+
+        curso.save()
+        
+        return render(request,"ProyectoCoderApp/formulario_curso.html",{})
+
+    else:
+        return render(request,"ProyectoCoderApp/formulario_curso.html",{})
     
 
 def profesores(request):
