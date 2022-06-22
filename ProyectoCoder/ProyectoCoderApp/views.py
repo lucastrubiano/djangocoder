@@ -17,12 +17,8 @@ def inicio(request):
 
 def crear_curso(request):
 
-    # get
-    if request.method == "GET":
-        return render(request,"ProyectoCoderApp/formulario_curso.html",{})
-
     # post
-    elif request.method == "POST":
+    if request.method == "POST":
 
         info_formulario = request.POST
         
@@ -32,7 +28,7 @@ def crear_curso(request):
         
         return render(request,"ProyectoCoderApp/formulario_curso.html",{})
 
-    else:
+    else: # get y otros
         return render(request,"ProyectoCoderApp/formulario_curso.html",{})
     
 
