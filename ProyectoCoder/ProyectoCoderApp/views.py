@@ -5,6 +5,7 @@ from django.http import HttpResponse
 
 from .models import Curso
 from .forms import NuevoCurso
+from django.db.models import Q
 
 # Create your views here.
 
@@ -49,7 +50,8 @@ def buscar_comision(request):
 
         comision = request.POST["comision"]
         
-        comisiones = Curso.objects.filter(comision__icontains=comision)
+        comisiones = Curso.objects.filter( Q(nombre__icontains=comision) | Q(comision__icontains=comision) ).values()
+        # User.objects.filter(Q(income__gte=5000) | Q(income__isnull=True))
 
         return render(request,"ProyectoCoderApp/buscar_comision.html",{"comisiones":comisiones})
 
