@@ -6,11 +6,20 @@ urlpatterns = [
     # URLS de ProyectoCoderApp
     path('', inicio, name="inicio"),
 
-    path('profesores/', profesores, name="profesores"),
     path('estudiantes/', estudiantes, name="estudiantes"),
+    
+    path('profesores/', profesores, name="profesores"),
+    path(r'list', ProfesList.as_view(), name="profe_list"),
+    path(r'^(?P<pk>\d+)$', ProfeDetail.as_view(), name="profe_detail"),
+    path(r'^nuevo$', ProfeCreate.as_view(), name="profe_create"),
+    path(r'^editar/(?P<pk>\d+)$', ProfeUpdate.as_view(), name="profe_update"),
+    path(r'^eliminar/(?P<pk>\d+)$', ProfeDelete.as_view(), name="profe_delete"),
+
     path('cursos/', cursos, name="cursos"),
     path('crear_curso/', crear_curso, name="crear_curso"),
-    path('buscar_comision/', buscar_comision, name="buscar_comision"),
+    path('eliminar_curso/<curso_id>/', eliminar_curso, name="eliminar_curso"),
+    path('editar_curso/<curso_id>/', editar_curso, name="editar_curso"),
+    # path('buscar_comision/', buscar_comision, name="buscar_comision"),
     
     path('entregables/', entregables, name="entregables"),
     # path('base/', base),

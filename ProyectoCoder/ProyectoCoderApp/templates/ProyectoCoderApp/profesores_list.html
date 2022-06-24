@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista Profes</title>
+</head>
+<body>
+    <h1>Profesores de Coder:</h1>
+    <ul>
+        {% for profe in object_list %}
+            <li>
+                <p>Profe: {{ profe.nombre }} {{ profe.apellido }}</p>
+                <p>
+                    <a href="{% url 'profe_detail' profe.id %}">Ver</a>
+                    <a href="{% url 'profe_update' profe.id %}">Editar</a>
+                    <a href="{% url 'profe_delete' profe.id %}">Eliminar</a>
+                </p>
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'profe_create' %}">Crear Nuevo</a>
+</body>
+</html>

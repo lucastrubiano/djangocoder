@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle Profe</title>
+</head>
+<body>
+    <p><b>Nombre: </b> {{ profesor.nombre }} </p>
+    <p><b>Apellido: </b> {{ profesor.apellido }} </p>
+    <p><b>Email: </b> {{ profesor.email }} </p>
+    <p><b>Profesion: </b> {{ profesor.profesion }} </p>
+
+    <a href="{% url 'profe_list' %}">Volver a lista de profes...</a>
+</body>
+</html>
