@@ -32,3 +32,6 @@ class Entregable(models.Model):
     nombre = models.CharField(max_length=30)
     fechaEntrega = models.DateField()
     entregado = models.BooleanField()
+
+    def __str__(self) -> str: # modificar como se visualiza
+        return f"Entregable: {self.nombre} en la fecha {self.fechaEntrega}"

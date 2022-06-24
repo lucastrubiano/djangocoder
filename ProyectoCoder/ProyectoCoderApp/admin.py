@@ -21,14 +21,14 @@ class ProfesorAdmin(admin.ModelAdmin):
     readonly_fields = ('profesion',)
 
 
-class EntregableAdmin(admin.ModelAdmin):
+# class EntregableAdmin(admin.ModelAdmin):
 
-    list_display = ('nombre', 'fechaEntrega', 'entregado')
+#     list_display = ('nombre', 'fechaEntrega', 'entregado')
 
 
 admin.site.register(Curso, CursoAdmin)
 admin.site.register(Estudiante, EstudianteAdmin)
 admin.site.register(Profesor, ProfesorAdmin)
-admin.site.register(Entregable, EntregableAdmin)
+admin.site.register(Entregable) # , EntregableAdmin
 
 # admin, admin -> python manage.py createsuperuser
