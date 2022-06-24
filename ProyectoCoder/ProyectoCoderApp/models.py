@@ -24,6 +24,8 @@ class Profesor(models.Model):
 
     profesion = models.CharField(max_length=30)
 
+    # dni = models.IntegerField()
+
     class Meta:
         verbose_name_plural = "Profesores"
 
