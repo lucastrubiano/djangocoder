@@ -10,7 +10,7 @@ from django.db.models import Q
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.urls import reverse_lazy
+# from django.urls import reverse_lazy
 
 # Create your views here.
 
@@ -108,6 +108,33 @@ def editar_estudiante(request,estudiante_id):
     formulario = EstudianteFormulario(initial={"nombre":estudiante.nombre, "apellido":estudiante.apellido, "email": estudiante.email})
     
     return render(request,"ProyectoCoderApp/formulario_estudiante.html",{"form":formulario})
+
+class EstudiantesList(ListView):
+
+    model = Estudiante
+    template_name = "ProyectoCoderApp/estudiantes_list.html"
+
+class EstudianteDetail(DetailView):
+
+    model = Estudiante
+    template_name = "ProyectoCoderApp/estudiante_detail.html"
+
+class EstudianteCreate(CreateView):
+
+    model = Estudiante
+    success_url = "/coderapp/estudiante/list" # atenciooooooooon!!!! a la primer /
+    fields = ["nombre", "apellido", "email"]
+
+class EstudianteUpdate(UpdateView):
+
+    model = Estudiante
+    success_url = "/coderapp/estudiante/list" # atenciooooooooon!!!! a la primer /
+    fields = ["nombre", "apellido", "email"]
+
+class EstudianteDelete(DeleteView):
+
+    model = Estudiante
+    success_url = "/coderapp/estudiante/list" # atenciooooooooon!!!! a la primer /
 
 
 def cursos(request):

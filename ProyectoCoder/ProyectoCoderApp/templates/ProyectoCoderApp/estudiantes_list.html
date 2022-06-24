@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Estudiantes</title>
+</head>
+<body>
+    <h2>Lista de estudiantes:</h2>
+    <ul>
+        {% for estudiante in object_list %}
+            <li>
+                Estudiante: {{estudiante.nombre}} {{estudiante.apellido}} | 
+                <a href="{% url 'estudiante_detail' estudiante.id %}">Ver</a>
+                <a href="{% url 'estudiante_update' estudiante.id %}">Editar</a>
+                <a href="{% url 'estudiante_delete' estudiante.id %}">Eliminar</a>
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'estudiante_create' %}">Crear Estudiante</a>
+</body>
+</html>

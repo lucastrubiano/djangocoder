@@ -10,6 +10,14 @@ urlpatterns = [
     path('crear_estudiante/', crear_estudiante, name="crear_estudiante"),
     path('eliminar_estudiante/<estudiante_id>', eliminar_estudiante, name="eliminar_estudiante"),
     path('editar_estudiante/<estudiante_id>', editar_estudiante, name="editar_estudiante"),
+
+    path('estudiante/list', EstudiantesList.as_view(), name="estudiante_list"),
+    path(r'^(?P<pk>\d+)$', EstudianteDetail.as_view(), name="estudiante_detail"),
+    path(r'^nuevo$', EstudianteCreate.as_view(), name="estudiante_create"),
+    path(r'^editar/(?P<pk>\d+)$', EstudianteUpdate.as_view(), name="estudiante_update"),
+    path(r'^eliminar/(?P<pk>\d+)$', EstudianteDelete.as_view(), name="estudiante_delete"),
+
+
     
     path('profesores/', profesores, name="profesores"),
     path(r'list', ProfesList.as_view(), name="profe_list"),
