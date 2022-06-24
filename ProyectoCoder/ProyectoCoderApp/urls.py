@@ -7,6 +7,9 @@ urlpatterns = [
     path('', inicio, name="inicio"),
 
     path('estudiantes/', estudiantes, name="estudiantes"),
+    path('crear_estudiante/', crear_estudiante, name="crear_estudiante"),
+    path('eliminar_estudiante/<estudiante_id>', eliminar_estudiante, name="eliminar_estudiante"),
+    path('editar_estudiante/<estudiante_id>', editar_estudiante, name="editar_estudiante"),
     
     path('profesores/', profesores, name="profesores"),
     path(r'list', ProfesList.as_view(), name="profe_list"),

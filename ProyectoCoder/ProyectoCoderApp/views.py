@@ -3,8 +3,8 @@ import datetime
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
 
-from .models import Curso, Profesor
-from .forms import NuevoCurso
+from .models import Curso, Estudiante, Profesor
+from .forms import EstudianteFormulario, NuevoCurso
 from django.db.models import Q
 
 from django.views.generic import ListView
@@ -42,8 +42,72 @@ def buscar_comision(request):
 """
 
 def estudiantes(request):
-    return render(request,"ProyectoCoderApp/estudiantes.html",{})
 
+    if request.method == "POST":
+
+        search = request.POST["search"]
+
+        if search != "":
+            estudiantes = Estudiante.objects.filter( Q(nombre__icontains=search) | Q(apellido__icontains=search) ).values()
+
+            return render(request,"ProyectoCoderApp/estudiantes.html",{"estudiantes":estudiantes, "search":True, "busqueda":search})
+
+    estudiantes = Estudiante.objects.all()
+
+    return render(request,"ProyectoCoderApp/estudiantes.html",{"estudiantes":estudiantes})
+
+def crear_estudiante(request):
+    
+    # post
+    if request.method == "POST":
+        
+        formulario = EstudianteFormulario(request.POST)
+
+        if formulario.is_valid():
+            
+            info = formulario.cleaned_data
+
+            estudiante = Estudiante(nombre=info["nombre"],apellido=info["apellido"],email=info["email"])
+            estudiante.save()
+
+            return redirect("estudiantes")
+
+        return render(request,"ProyectoCoderApp/formulario_estudiante.html",{"form":formulario})
+
+    # get
+    formulario = EstudianteFormulario()
+    return render(request,"ProyectoCoderApp/formulario_estudiante.html",{"form":formulario})
+
+def eliminar_estudiante(request,estudiante_id):
+
+    estudiante = Estudiante.objects.get(id=estudiante_id)
+    estudiante.delete()
+
+    return redirect("estudiantes")
+
+def editar_estudiante(request,estudiante_id):
+
+    estudiante = Estudiante.objects.get(id=estudiante_id)
+
+    if request.method == "POST":
+
+        formulario = EstudianteFormulario(request.POST)
+
+        if formulario.is_valid():
+            
+            info_estudiante = formulario.cleaned_data
+            
+            estudiante.nombre = info_estudiante["nombre"]
+            estudiante.apellido = info_estudiante["apellido"]
+            estudiante.email = info_estudiante["email"]
+            estudiante.save()
+
+            return redirect("estudiantes")
+
+    # get
+    formulario = EstudianteFormulario(initial={"nombre":estudiante.nombre, "apellido":estudiante.apellido, "email": estudiante.email})
+    
+    return render(request,"ProyectoCoderApp/formulario_estudiante.html",{"form":formulario})
 
 
 def cursos(request):

@@ -8,15 +8,18 @@ Estudiantes - App Coder
 {% block contenidoPagina %}
 <section class="bg-light py-5">
     <div class="container px-5">
-        <h1>Nuestros cursos:</h1>
+        <h1>Nuestros estudiantes:</h1>
         <br>
         <div class="row gx-5 justify-content-center">
             <div class="col-lg-12">
                 <form class="d-flex my-2 my-lg-0" action="" method="post">
                     {% csrf_token %}
-                    <input class="flex-grow-0 form-control mr-sm-2" type="search" name="search" placeholder="Buscar por curso/comisión" aria-label="Search">
+                    <input class="flex-grow-0 form-control mr-sm-2" type="search" name="search" placeholder="Buscar por nombre/apellido" aria-label="Search">
                     <button class="btn btn-outline-success text-nowrap ms-3 my-2 my-sm-0" type="submit"> <i class="bi bi-search"></i> Buscar</button>
-                    <a class="btn btn-outline-success text-nowrap ms-3 my-2 my-sm-0" href="{% url 'crear_curso' %}"> <i class="bi bi-plus-lg"></i> Crear Curso</a>
+                    <a class="btn btn-outline-success text-nowrap ms-3 my-2 my-sm-0" href="{% url 'crear_estudiante' %}"> <i class="bi bi-plus-lg"></i> Crear Estudiante</a>
+                    {% comment %}
+                        {% url 'crear_estudiante' %}
+                    {% endcomment %}
                 </form>
             </div>
         </div>
@@ -35,21 +38,27 @@ Estudiantes - App Coder
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Curso</th>
-                            <th scope="col">Comisión</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Apellido</th>
+                            <!-- <th scope="col">Email</th> -->
                             <th scope="col">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         
-                        {% for curso in cursos %}
+                        {% for estudiante in estudiantes %}
                             <tr>
                                 <th scope="row">{{forloop.counter}}</th>
-                                <td>{{curso.nombre}}</td>
-                                <td>{{curso.comision}}</td>
+                                <td>{{estudiante.nombre}}</td>
+                                <td>{{estudiante.apellido}}</td>
+                                <!-- <td>{{estudiante.email}}</td> -->
                                 <td>
-                                    <a href="{% url 'editar_curso' curso.id %}" class="text-primary badge badge-primary text-decoration-none"> <i class="bi bi-pencil-square"></i> Editar</a>
-                                    <a href="{% url 'eliminar_curso' curso.id %}" class="text-danger badge badge-danger text-decoration-none"> <i class="bi bi-x-square"></i> Eliminar</a>
+                                    <a href="{% url 'editar_estudiante' estudiante.id %}" class="text-primary badge badge-primary text-decoration-none"> <i class="bi bi-pencil-square"></i> Editar</a>
+                                    <a href="{% url 'eliminar_estudiante' estudiante.id %}" class="text-danger badge badge-danger text-decoration-none"> <i class="bi bi-x-square"></i> Eliminar</a>
+                                    {% comment %}
+                                        {% url 'editar_estudiante' estudiante.id %}
+                                        {% url 'eliminar_estudiante' estudiante.id %}
+                                    {% endcomment %}
                                 </td>
                             </tr>
                         {% endfor %}
