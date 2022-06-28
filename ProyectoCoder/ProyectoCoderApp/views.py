@@ -14,6 +14,9 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 # Create your views here.
 
+def entrada(request):
+    return redirect("inicio")
+
 def inicio(request):
 
     nombre = "Juan"

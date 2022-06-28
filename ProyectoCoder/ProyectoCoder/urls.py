@@ -22,6 +22,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # path('crearpython/',crear_curso),
 
+    path('', entrada),
+
     # URLS de ProyectoCoderApp
     path('coderapp/', include('ProyectoCoderApp.urls')),
 ]
