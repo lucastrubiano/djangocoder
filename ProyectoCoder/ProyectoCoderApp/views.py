@@ -18,6 +18,7 @@ from django.contrib.auth import login, logout, authenticate
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
 
 # Create your views here.
 
@@ -184,7 +185,7 @@ class EstudianteDelete(DeleteView):
     model = Estudiante
     success_url = "/coderapp/estudiante/list" # atenciooooooooon!!!! a la primer /
 
-
+@staff_member_required
 def cursos(request):
 
     if request.method == "POST":
