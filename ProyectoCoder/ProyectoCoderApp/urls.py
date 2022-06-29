@@ -23,11 +23,11 @@ urlpatterns = [
 
     
     path('profesores/', profesores, name="profesores"),
-    path(r'list', ProfesList.as_view(), name="profe_list"),
-    path(r'^(?P<pk>\d+)$', ProfeDetail.as_view(), name="profe_detail"),
-    path(r'^nuevo$', ProfeCreate.as_view(), name="profe_create"),
-    path(r'^editar/(?P<pk>\d+)$', ProfeUpdate.as_view(), name="profe_update"),
-    path(r'^eliminar/(?P<pk>\d+)$', ProfeDelete.as_view(), name="profe_delete"),
+    path('profesores/list', ProfesList.as_view(), name="profe_list"),
+    path('profesores/<pk>', ProfeDetail.as_view(), name="profe_detail"),
+    path('profesores/nuevo', ProfeCreate.as_view(), name="profe_create"),
+    path('profesores/editar/<pk>', ProfeUpdate.as_view(), name="profe_update"),
+    path('profesores/eliminar/<pk>', ProfeDelete.as_view(), name="profe_delete"),
 
     path('cursos/', cursos, name="cursos"),
     path('crear_curso/', crear_curso, name="crear_curso"),

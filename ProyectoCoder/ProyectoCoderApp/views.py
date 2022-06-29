@@ -16,6 +16,9 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from .forms import *
 from django.contrib.auth import login, logout, authenticate
 
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
+
 # Create your views here.
 
 def entrada(request):
@@ -258,14 +261,14 @@ def editar_curso(request, curso_id):
     return render(request,"ProyectoCoderApp/formulario_curso.html",{"form":formulario,"accion":"Editar Curso"})
 
 
-
+@login_required
 def profesores(request):
 
     profesores = Profesor.objects.all()
 
     return render(request,"ProyectoCoderApp/profesores.html",{"profesores":profesores})
 
-class ProfesList(ListView):
+class ProfesList(LoginRequiredMixin,ListView):
 
     model = Profesor
     template_name = "ProyectoCoderApp/profesores_list.html"
