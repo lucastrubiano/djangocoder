@@ -6,6 +6,7 @@ urlpatterns = [
     # URLS de ProyectoCoderApp
     path('', inicio, name="inicio"),
     path('login', login_request, name="login"), # no usar login como nombre de la vista
+    path('register', register_request, name="register"),
 
     path('estudiantes/', estudiantes, name="estudiantes"),
     path('crear_estudiante/', crear_estudiante, name="crear_estudiante"),

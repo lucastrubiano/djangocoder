@@ -12,7 +12,7 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 # from django.urls import reverse_lazy
 
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import login, logout, authenticate
 
 # Create your views here.
@@ -51,6 +51,33 @@ def login_request(request):
     form = AuthenticationForm()
 
     return render(request,"ProyectoCoderApp/login.html",{"form":form})
+
+def register_request(request):
+
+    if request.method == "POST":
+        
+        form = UserCreationForm(request.POST)
+
+        if form.is_valid():
+
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password1') # es la primer contraseña, no la confirmacion
+
+            form.save() # registramos el usuario
+            # iniciamos la sesion
+            user = authenticate(username=username, password=password)
+
+            if user is not None:
+                login(request, user)
+                return redirect("inicio")
+            else:
+                return redirect("login")
+
+        return render(request,"ProyectoCoderApp/register.html",{"form":form})
+
+    form = UserCreationForm()
+
+    return render(request,"ProyectoCoderApp/register.html",{"form":form})
 
 def estudiantes(request):
 
