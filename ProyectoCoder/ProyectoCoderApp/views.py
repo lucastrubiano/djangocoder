@@ -201,6 +201,7 @@ def cursos(request):
 
     return render(request,"ProyectoCoderApp/cursos.html",{"cursos":cursos, "search":False})
 
+@staff_member_required
 def crear_curso(request):
 
     # post
@@ -228,6 +229,7 @@ def crear_curso(request):
 
         return render(request,"ProyectoCoderApp/formulario_curso.html",{"form":formularioVacio,"accion":"Crear Curso"})
 
+@staff_member_required
 def eliminar_curso(request, curso_id):
 
     # post
@@ -236,6 +238,7 @@ def eliminar_curso(request, curso_id):
 
     return redirect("cursos")
 
+@staff_member_required
 def editar_curso(request, curso_id):
 
     # post
@@ -260,7 +263,6 @@ def editar_curso(request, curso_id):
     formulario = NuevoCurso(initial={"nombre":curso.nombre,"comision":curso.comision})
 
     return render(request,"ProyectoCoderApp/formulario_curso.html",{"form":formulario,"accion":"Editar Curso"})
-
 
 @login_required
 def profesores(request):
