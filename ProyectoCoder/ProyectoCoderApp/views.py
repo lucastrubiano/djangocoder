@@ -12,7 +12,7 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 # from django.urls import reverse_lazy
 
-from django.contrib.auth.forms import AuthenticationForm #, UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from .forms import *
 from django.contrib.auth import login, logout, authenticate
 
@@ -81,6 +81,10 @@ def register_request(request):
     # form = UserRegisterForm()
 
     return render(request,"ProyectoCoderApp/register.html",{"form":form})
+
+def logout_request(request):
+    logout(request)
+    return redirect("inicio")
 
 def estudiantes(request):
 
