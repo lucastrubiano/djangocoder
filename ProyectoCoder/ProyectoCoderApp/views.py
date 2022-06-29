@@ -12,6 +12,9 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 # from django.urls import reverse_lazy
 
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login, logout, authenticate
+
 # Create your views here.
 
 def entrada(request):
@@ -25,24 +28,29 @@ def inicio(request):
 
     return render(request,"ProyectoCoderApp/index.html",{"mi_nombre":nombre,"dia_hora":hoy,"notas":notas})
 
-"""
-def buscar_comision(request):
+def login_request(request):
 
     if request.method == "POST":
 
-        comision = request.POST["comision"]
-        
-        comisiones = Curso.objects.filter( Q(nombre__icontains=comision) | Q(comision__icontains=comision) ).values()
-        # User.objects.filter(Q(income__gte=5000) | Q(income__isnull=True))
+        form = AuthenticationForm(request, data=request.POST)
 
-        return render(request,"ProyectoCoderApp/buscar_comision.html",{"comisiones":comisiones})
+        if form.is_valid():
 
-    else: # get y otros
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
 
-        comisiones =  []  #Curso.objects.all()
-        
-        return render(request,"ProyectoCoderApp/buscar_comision.html",{"comisiones":comisiones})
-"""
+            if user is not None:
+                login(request, user)
+                return redirect("inicio")
+            else:
+                return redirect("login")
+        else:
+            return redirect("login")
+    
+    form = AuthenticationForm()
+
+    return render(request,"ProyectoCoderApp/login.html",{"form":form})
 
 def estudiantes(request):
 
@@ -216,6 +224,7 @@ def editar_curso(request, curso_id):
     return render(request,"ProyectoCoderApp/formulario_curso.html",{"form":formulario,"accion":"Editar Curso"})
 
 
+
 def profesores(request):
 
     profesores = Profesor.objects.all()
@@ -227,12 +236,10 @@ class ProfesList(ListView):
     model = Profesor
     template_name = "ProyectoCoderApp/profesores_list.html"
 
-
 class ProfeDetail(DetailView):
 
     model = Profesor
     template_name = "ProyectoCoderApp/profesor_detail.html"
-
 
 class ProfeCreate(CreateView):
 
