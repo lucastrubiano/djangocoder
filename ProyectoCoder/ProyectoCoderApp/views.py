@@ -12,7 +12,8 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 # from django.urls import reverse_lazy
 
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm #, UserCreationForm
+from .forms import *
 from django.contrib.auth import login, logout, authenticate
 
 # Create your views here.
@@ -57,6 +58,7 @@ def register_request(request):
     if request.method == "POST":
         
         form = UserCreationForm(request.POST)
+        # form = UserRegisterForm(request.POST)
 
         if form.is_valid():
 
@@ -76,6 +78,7 @@ def register_request(request):
         return render(request,"ProyectoCoderApp/register.html",{"form":form})
 
     form = UserCreationForm()
+    # form = UserRegisterForm()
 
     return render(request,"ProyectoCoderApp/register.html",{"form":form})
 
