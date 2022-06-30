@@ -3,7 +3,7 @@ import datetime
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
 
-from .models import Curso, Estudiante, Profesor
+from .models import Avatar, Curso, Estudiante, Profesor
 from .forms import EstudianteFormulario, NuevoCurso
 from django.db.models import Q
 
@@ -31,7 +31,13 @@ def inicio(request):
     hoy = datetime.datetime.now()
     notas = [4,9,7,8,5,10]
 
-    return render(request,"ProyectoCoderApp/index.html",{"mi_nombre":nombre,"dia_hora":hoy,"notas":notas})
+    try:
+        avatar = Avatar.objects.get(usuario = request.user.id)
+        url = avatar.imagen.url
+    except:
+        url="..."
+
+    return render(request,"ProyectoCoderApp/index.html",{"mi_nombre":nombre,"dia_hora":hoy,"notas":notas, "imagen_url": url})
 
 def login_request(request):
 
@@ -89,6 +95,41 @@ def register_request(request):
 def logout_request(request):
     logout(request)
     return redirect("inicio")
+
+@login_required
+def editar_perfil(request):
+
+    user = request.user
+
+    if request.method == "POST":
+            
+        form = UserEditForm(request.POST) # instance=user
+
+        if form.is_valid():
+
+            info = form.cleaned_data
+            
+            user.email = info["email"]
+            # user.password1 = info["password1"]
+            # user.password2 = info["password1"]
+            user.first_name = info["first_name"]
+            user.last_name = info["last_name"]
+
+            user.save()
+
+            return redirect("inicio")
+
+        # return render(request,"ProyectoCoderApp/editar_perfil.html",{"form":form})
+    
+    else:
+        form = UserEditForm(initial={"email":user.email, "first_name":user.first_name, "last_name":user.last_name })# initial={"email",user.email} # instance=user
+
+        # return render(request,"ProyectoCoderApp/editar_perfil.html",{"form":form})
+    
+    return render(request,"ProyectoCoderApp/editar_perfil.html",{"form":form})
+    
+
+# Segun nuestros modelos
 
 def estudiantes(request):
 

@@ -36,7 +36,9 @@
                         {% endif %}
 
                         {% if user.is_authenticated %}
-                            <li class="nav-item"><p class="text-light my-2 mx-2"> <i class="bi bi-person-circle"></i> Hola, <b>{{user.username}}</b>!</p></li>
+                            <img class="rounded mx-auto d-block" src="{{ imagen_url }}" alt="." style="height: 40px; width: 40px; " srcset="">
+                            <!-- <li class="nav-item"><p class="text-light my-2 mx-2"><a class="text-light" href="{% url 'editar_perfil' %}"> <i class="bi bi-person-circle"></i> Hola, <b>{{user.username}}</b>! </a></li> -->
+                            <li class="nav-item"><p class="text-light my-2 mx-2"><a class="text-light" href="{% url 'editar_perfil' %}"> Hola, <b>{{user.username}}</b>! </a></li>
                             <li class="nav-item"><a class="btn btn-primary" href="{% url 'logout' %}">Cerrar Sesión</a></li>
                         {% else %}
                             <li class="nav-item"><a class="btn btn-primary mx-2" href="{% url 'login' %}">Iniciar Sesión</a></li>
