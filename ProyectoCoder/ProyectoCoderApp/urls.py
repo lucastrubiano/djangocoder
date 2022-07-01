@@ -8,6 +8,7 @@ urlpatterns = [
     path('login', login_request, name="login"), # no usar login como nombre de la vista
     path('register', register_request, name="register"),
     path('logout', logout_request, name="logout"),
+    path('editar_perfil', editar_perfil, name="editar_perfil"),
 
     path('estudiantes/', estudiantes, name="estudiantes"),
     path('crear_estudiante/', crear_estudiante, name="crear_estudiante"),

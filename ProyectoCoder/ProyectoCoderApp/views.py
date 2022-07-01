@@ -61,8 +61,8 @@ def register_request(request):
 
     if request.method == "POST":
         
-        form = UserCreationForm(request.POST)
-        # form = UserRegisterForm(request.POST)
+        # form = UserCreationForm(request.POST)
+        form = UserRegisterForm(request.POST)
 
         if form.is_valid():
 
@@ -81,14 +81,43 @@ def register_request(request):
 
         return render(request,"ProyectoCoderApp/register.html",{"form":form})
 
-    form = UserCreationForm()
-    # form = UserRegisterForm()
+    # form = UserCreationForm()
+    form = UserRegisterForm()
 
     return render(request,"ProyectoCoderApp/register.html",{"form":form})
 
 def logout_request(request):
     logout(request)
     return redirect("inicio")
+
+# vista de editar perfil
+@login_required
+def editar_perfil(request):
+
+    user = request.user # usuario con el que estamos loggueados
+
+    if request.method == "POST":
+        
+        form = UserEditForm(request.POST) # cargamos datos llenados
+
+        if form.is_valid():
+
+            info = form.cleaned_data
+            user.email = info["email"]
+            user.first_name = info["first_name"]
+            user.last_name = info["last_name"]
+            # user.password = info["password1"]
+
+            user.save()
+
+            return redirect("inicio")
+
+
+    else:
+        form = UserEditForm(initial={"email":user.email, "first_name":user.first_name, "last_name":user.last_name})
+
+    return render(request,"ProyectoCoderApp/editar_perfil.html",{"form":form})
+
 
 def estudiantes(request):
 

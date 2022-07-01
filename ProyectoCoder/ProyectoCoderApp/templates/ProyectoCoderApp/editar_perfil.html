@@ -1,0 +1,23 @@
+{% extends 'ProyectoCoderApp/base.html' %}
+{% load static %}
+
+{% block tituloPagina %}
+Editar Perfil - App Coder
+{% endblock %}
+
+{% block contenidoPagina %}
+
+<section class="bg-light py-5">
+    <div class="container px-5">
+        <h1>Editar Perfil</h1>
+        <br>
+        <h5>Estás editando al usuario "{{user.username}}":</h5>
+        <br>
+        <form action="" method="post">
+            {% csrf_token %}
+            {{form.as_p}}
+            <button type="submit">Guardar</button>
+        </form>
+    </div>
+</section>
+{% endblock %}
