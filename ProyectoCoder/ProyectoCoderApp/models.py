@@ -1,15 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-
-# Modelo Avatar
+# modelo del avatar
 class Avatar(models.Model):
 
-    # vinculo con el usuario
     usuario = models.OneToOneField(User, on_delete=models.CASCADE)
 
-    # imagen de perfil
-    imagen = models.ImageField(upload_to='avatar/', null=True, blank=True)
+    imagen = models.ImageField(upload_to='avatar/', blank=True, null=True)
 
 
 # Create your models here.

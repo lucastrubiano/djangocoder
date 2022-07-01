@@ -30,14 +30,17 @@ def inicio(request):
     nombre = "Juan"
     hoy = datetime.datetime.now()
     notas = [4,9,7,8,5,10]
+    diccionario = {"nombre":"Juan","apellido":"Perez","edad":20}
 
-    try:
-        avatar = Avatar.objects.get(usuario = request.user.id)
-        url = avatar.imagen.url
-    except:
-        url="..."
+    if request.user.is_authenticated:
+        try:
+            avatar = Avatar.objects.get(usuario=request.user)
+            url = avatar.imagen.url
+        except:
+            url = "/media/avatar/generica.jpg"
+        return render(request,"ProyectoCoderApp/index.html",{"mi_nombre":nombre,"dia_hora":hoy,"notas":notas, "url":url})
 
-    return render(request,"ProyectoCoderApp/index.html",{"mi_nombre":nombre,"dia_hora":hoy,"notas":notas, "imagen_url": url})
+    return render(request,"ProyectoCoderApp/index.html",{"mi_nombre":nombre,"dia_hora":hoy,"notas":notas})
 
 def login_request(request):
 
@@ -67,8 +70,8 @@ def register_request(request):
 
     if request.method == "POST":
         
-        form = UserCreationForm(request.POST)
-        # form = UserRegisterForm(request.POST)
+        # form = UserCreationForm(request.POST)
+        form = UserRegisterForm(request.POST)
 
         if form.is_valid():
 
@@ -87,8 +90,8 @@ def register_request(request):
 
         return render(request,"ProyectoCoderApp/register.html",{"form":form})
 
-    form = UserCreationForm()
-    # form = UserRegisterForm()
+    # form = UserCreationForm()
+    form = UserRegisterForm()
 
     return render(request,"ProyectoCoderApp/register.html",{"form":form})
 
@@ -96,40 +99,60 @@ def logout_request(request):
     logout(request)
     return redirect("inicio")
 
+# vista de editar perfil
 @login_required
 def editar_perfil(request):
 
-    user = request.user
+    user = request.user # usuario con el que estamos loggueados
 
     if request.method == "POST":
-            
-        form = UserEditForm(request.POST) # instance=user
+        
+        form = UserEditForm(request.POST) # cargamos datos llenados
 
         if form.is_valid():
 
             info = form.cleaned_data
-            
             user.email = info["email"]
-            # user.password1 = info["password1"]
-            # user.password2 = info["password1"]
             user.first_name = info["first_name"]
             user.last_name = info["last_name"]
+            # user.password = info["password1"]
 
             user.save()
 
             return redirect("inicio")
 
-        # return render(request,"ProyectoCoderApp/editar_perfil.html",{"form":form})
-    
+
     else:
-        form = UserEditForm(initial={"email":user.email, "first_name":user.first_name, "last_name":user.last_name })# initial={"email",user.email} # instance=user
+        form = UserEditForm(initial={"email":user.email, "first_name":user.first_name, "last_name":user.last_name})
 
-        # return render(request,"ProyectoCoderApp/editar_perfil.html",{"form":form})
-    
     return render(request,"ProyectoCoderApp/editar_perfil.html",{"form":form})
-    
 
-# Segun nuestros modelos
+@login_required
+def agregar_avatar(request):
+    
+    if request.method == "POST":
+            
+        form = AvatarForm(request.POST, request.FILES)
+
+        if form.is_valid():
+
+            user = User.objects.get(username=request.user.username) # usuario con el que estamos loggueados
+
+            avatar = Avatar(usuario=user, imagen=form.cleaned_data["imagen"])
+
+            avatar.save()
+
+            # avatar = Avatar()
+            # avatar.usuario = request.user
+            # avatar.imagen = form.cleaned_data["imagen"]
+            # avatar.save()
+
+            return redirect("inicio")
+
+    else:
+        form = AvatarForm()
+    
+    return render(request,"ProyectoCoderApp/agregar_avatar.html",{"form":form})
 
 def estudiantes(request):
 

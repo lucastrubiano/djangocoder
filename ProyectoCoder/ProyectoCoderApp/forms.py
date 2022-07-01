@@ -1,6 +1,9 @@
+from pyexpat import model
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+
+from .models import Avatar
 
 class NuevoCurso(forms.Form):
 
@@ -14,29 +17,30 @@ class EstudianteFormulario(forms.Form):
 
     email = forms.EmailField()
 
+roles = [("estudiante", "Estudiante"), ("profesor", "Profesor")]
 class UserRegisterForm(UserCreationForm):
     
     email = forms.EmailField(label="Email")
     password1 = forms.CharField(label="Contraseña", widget=forms.PasswordInput) # la contraseña no se vea
     password2 = forms.CharField(label="Confirmar contraseña", widget=forms.PasswordInput)
 
-    # nuevo
-    first_name = forms.CharField(label="Nombre")
-    last_name = forms.CharField(label="Apellido")
+    first_name = forms.CharField(label="Nombre", required=False)
+    last_name = forms.CharField(label="Apellido", required=False)
+
+    roles = forms.MultipleChoiceField(choices=roles, label="Roles", widget=forms.Select(choices=roles))
 
     class Meta:
         model = User
         fields = ['username', 'email', 'password1', 'password2', 'first_name', 'last_name']
 
-        help_texts = {k:"" for k in fields}
+        # help_texts = {k:"" for k in fields}
 
 class UserEditForm(UserCreationForm):
 
     email = forms.EmailField(label="Email")
-    password1: forms.Field(label="Contraseña", widget=forms.PasswordInput)
-    password2: forms.Field(label="Confirmar contraseña", widget=forms.PasswordInput)
+    password1 = forms.CharField(label="Contraseña", widget=forms.PasswordInput, required=False) # la contraseña no se vea
+    password2 = forms.CharField(label="Confirmar contraseña", widget=forms.PasswordInput, required=False)
 
-    #nuevo
     first_name = forms.CharField(label="Nombre")
     last_name = forms.CharField(label="Apellido")
 
@@ -44,4 +48,12 @@ class UserEditForm(UserCreationForm):
         model = User
         fields = ['email', 'password1', 'password2', 'first_name', 'last_name']
 
-        help_texts = {k:"" for k in fields} # ocultamos las ayudas
+        help_texts = {k:"" for k in fields}
+
+class AvatarForm(forms.Form):
+
+    imagen = forms.ImageField(label="Imagen", required=False)
+
+    class Meta:
+        model = Avatar
+        fields = ['imagen']
