@@ -1,6 +1,9 @@
+from pyexpat import model
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+
+from .models import Avatar
 
 class NuevoCurso(forms.Form):
 
@@ -14,6 +17,7 @@ class EstudianteFormulario(forms.Form):
 
     email = forms.EmailField()
 
+roles = [("estudiante", "Estudiante"), ("profesor", "Profesor")]
 class UserRegisterForm(UserCreationForm):
     
     email = forms.EmailField(label="Email")
@@ -22,6 +26,8 @@ class UserRegisterForm(UserCreationForm):
 
     first_name = forms.CharField(label="Nombre", required=False)
     last_name = forms.CharField(label="Apellido", required=False)
+
+    roles = forms.MultipleChoiceField(choices=roles, label="Roles", widget=forms.Select(choices=roles))
 
     class Meta:
         model = User
@@ -43,3 +49,11 @@ class UserEditForm(UserCreationForm):
         fields = ['email', 'password1', 'password2', 'first_name', 'last_name']
 
         help_texts = {k:"" for k in fields}
+
+class AvatarForm(forms.Form):
+
+    imagen = forms.ImageField(label="Imagen", required=False)
+
+    class Meta:
+        model = Avatar
+        fields = ['imagen']

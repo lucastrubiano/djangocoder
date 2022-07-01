@@ -3,7 +3,7 @@ import datetime
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
 
-from .models import Curso, Estudiante, Profesor
+from .models import Avatar, Curso, Estudiante, Profesor
 from .forms import EstudianteFormulario, NuevoCurso
 from django.db.models import Q
 
@@ -30,6 +30,15 @@ def inicio(request):
     nombre = "Juan"
     hoy = datetime.datetime.now()
     notas = [4,9,7,8,5,10]
+    diccionario = {"nombre":"Juan","apellido":"Perez","edad":20}
+
+    if request.user.is_authenticated:
+        try:
+            avatar = Avatar.objects.get(usuario=request.user)
+            url = avatar.imagen.url
+        except:
+            url = "/media/avatar/generica.jpg"
+        return render(request,"ProyectoCoderApp/index.html",{"mi_nombre":nombre,"dia_hora":hoy,"notas":notas, "url":url})
 
     return render(request,"ProyectoCoderApp/index.html",{"mi_nombre":nombre,"dia_hora":hoy,"notas":notas})
 
@@ -118,6 +127,32 @@ def editar_perfil(request):
 
     return render(request,"ProyectoCoderApp/editar_perfil.html",{"form":form})
 
+@login_required
+def agregar_avatar(request):
+    
+    if request.method == "POST":
+            
+        form = AvatarForm(request.POST, request.FILES)
+
+        if form.is_valid():
+
+            user = User.objects.get(username=request.user.username) # usuario con el que estamos loggueados
+
+            avatar = Avatar(usuario=user, imagen=form.cleaned_data["imagen"])
+
+            avatar.save()
+
+            # avatar = Avatar()
+            # avatar.usuario = request.user
+            # avatar.imagen = form.cleaned_data["imagen"]
+            # avatar.save()
+
+            return redirect("inicio")
+
+    else:
+        form = AvatarForm()
+    
+    return render(request,"ProyectoCoderApp/agregar_avatar.html",{"form":form})
 
 def estudiantes(request):
 
