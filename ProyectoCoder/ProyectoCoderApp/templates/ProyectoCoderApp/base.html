@@ -36,7 +36,11 @@
                         {% endif %}
 
                         {% if user.is_authenticated %}
-                            <img class="rounded" src="{{url}}" alt="" srcset="" style="height: 40px;">
+                            {% if user.avatar.imagen.url %}
+                                <img class="rounded" src="{{ user.avatar.imagen.url }}" alt="" srcset="" style="height: 40px;">
+                            {% else %}
+                                <i class="bi bi-person-circle text-light my-2"></i>
+                            {% endif %}
                             <!-- <i class="bi bi-person-circle text-light"></i> -->
                             <li class="nav-item"><p class="text-light my-2 mx-2"> Hola, <b>{{user.username}}</b>!</p></li>
                             <li class="nav-item"><a class="btn btn-primary" href="{% url 'logout' %}">Cerrar Sesión</a></li>

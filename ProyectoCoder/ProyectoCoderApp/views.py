@@ -32,13 +32,13 @@ def inicio(request):
     notas = [4,9,7,8,5,10]
     diccionario = {"nombre":"Juan","apellido":"Perez","edad":20}
 
-    if request.user.is_authenticated:
-        try:
-            avatar = Avatar.objects.get(usuario=request.user)
-            url = avatar.imagen.url
-        except:
-            url = "/media/avatar/generica.jpg"
-        return render(request,"ProyectoCoderApp/index.html",{"mi_nombre":nombre,"dia_hora":hoy,"notas":notas, "url":url})
+    # if request.user.is_authenticated:
+    #     # try:
+    #     #     avatar = Avatar.objects.get(usuario=request.user)
+    #     #     url = avatar.imagen.url
+    #     # except:
+    #     #     url = "/media/avatar/generica.jpg"
+    #     return render(request,"ProyectoCoderApp/index.html",{"mi_nombre":nombre,"dia_hora":hoy,"notas":notas, "url":url})
 
     return render(request,"ProyectoCoderApp/index.html",{"mi_nombre":nombre,"dia_hora":hoy,"notas":notas})
 
