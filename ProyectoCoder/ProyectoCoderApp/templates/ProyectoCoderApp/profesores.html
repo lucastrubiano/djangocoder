@@ -52,6 +52,7 @@ Profesores - App Coder
                                 <td>{{profe.email}}</td>
                                 <td>{{profe.profesion}}</td>
                                 <td>
+                                    <a href="{% url 'profe_detail' profe.id %}" class="text-success badge badge-success text-decoration-none"> <i class="bi bi-eye"></i> Ver</a>
                                     <a href="{% url 'profe_update' profe.id %}" class="text-primary badge badge-primary text-decoration-none"> <i class="bi bi-pencil-square"></i> Editar</a>
                                     <a href="{% url 'profe_delete' profe.id %}" class="text-danger badge badge-danger text-decoration-none"> <i class="bi bi-x-square"></i> Eliminar</a>
                                 </td>
