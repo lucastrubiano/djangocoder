@@ -18,5 +18,5 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ProyectoCoder.settings')
 application = get_wsgi_application()
 
 # application = WhiteNoise(application)
-application = WhiteNoise(application, root="./static/")
+application = WhiteNoise(application, root="/ProyectoCoder/static/")
 # application.add_files("/path/to/more/static/files", prefix="more-files/")
