@@ -1,1 +1,1 @@
-web: gunicorn ProyectoCoder.wsgi
+web: gunicorn --pythonpath ProyectoCoder ProyectoCoder.wsgi
