@@ -21,13 +21,11 @@ urlpatterns = [
     path(r'^nuevo$', EstudianteCreate.as_view(), name="estudiante_create"),
     path(r'^editar/(?P<pk>\d+)$', EstudianteUpdate.as_view(), name="estudiante_update"),
     path(r'^eliminar/(?P<pk>\d+)$', EstudianteDelete.as_view(), name="estudiante_delete"),
-
-
     
     path('profesores/', profesores, name="profesores"),
     path('profesores/list', ProfesList.as_view(), name="profe_list"),
     path('profesores/<pk>', ProfeDetail.as_view(), name="profe_detail"),
-    path('profesores/nuevo', ProfeCreate.as_view(), name="profe_create"),
+    path('profesor/nuevo', ProfeCreate.as_view(), name="profe_create"),
     path('profesores/editar/<pk>', ProfeUpdate.as_view(), name="profe_update"),
     path('profesores/eliminar/<pk>', ProfeDelete.as_view(), name="profe_delete"),
 

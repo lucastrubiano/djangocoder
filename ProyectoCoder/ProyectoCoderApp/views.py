@@ -348,19 +348,19 @@ class ProfeDetail(DetailView):
 class ProfeCreate(CreateView):
 
     model = Profesor
-    success_url = "/coderapp/list"#reverse_lazy("profes_list")
+    success_url = "/coderapp/profesores/list"#reverse_lazy("profes_list")
     fields = ["nombre", "apellido", "email", "profesion"]
 
 class ProfeUpdate(UpdateView):
 
     model = Profesor
-    success_url = "/coderapp/list"#reverse_lazy("profes_list")
+    success_url = "/coderapp/profesores/list"#reverse_lazy("profes_list")
     fields = ["nombre", "apellido", "email", "profesion"]
 
 class ProfeDelete(DeleteView):
 
     model = Profesor
-    success_url = "/coderapp/list"#reverse_lazy("profes_list")
+    success_url = "/coderapp/profesores/list"#reverse_lazy("profes_list")
 
 def base(request):
     return render(request,"ProyectoCoderApp/base.html",{})
